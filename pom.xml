@@ -66,9 +66,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>dotenv</artifactId>
-			<version>16.3.1</version>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>java-dotenv</artifactId>
 		</dependency>
 	</dependencies>
 
