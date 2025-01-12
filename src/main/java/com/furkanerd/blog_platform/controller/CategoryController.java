@@ -2,11 +2,13 @@ package com.furkanerd.blog_platform.controller;
 
 import com.furkanerd.blog_platform.mapper.CategoryMapper;
 import com.furkanerd.blog_platform.model.dto.CategoryDto;
+import com.furkanerd.blog_platform.model.dto.CreateCategoryRequest;
+import com.furkanerd.blog_platform.model.entity.Category;
 import com.furkanerd.blog_platform.service.CategoryService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +30,15 @@ public class CategoryController {
                 .stream().map(categoryMapper::toDto)
                 .toList();
         return ResponseEntity.ok(categoryList);
+    }
+
+    @PostMapping
+    ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CreateCategoryRequest createCategoryRequest){
+          Category categoryToCreate= categoryMapper.toEntity(createCategoryRequest);
+          Category savedCategory = categoryService.createCategory(categoryToCreate);
+          return  new ResponseEntity<>(
+                  categoryMapper.toDto(savedCategory),
+                  HttpStatus.CREATED
+          );
     }
 }

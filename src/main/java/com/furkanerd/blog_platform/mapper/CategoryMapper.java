@@ -3,6 +3,7 @@ package com.furkanerd.blog_platform.mapper;
 
 import com.furkanerd.blog_platform.model.PostStatus;
 import com.furkanerd.blog_platform.model.dto.CategoryDto;
+import com.furkanerd.blog_platform.model.dto.CreateCategoryRequest;
 import com.furkanerd.blog_platform.model.entity.Category;
 import com.furkanerd.blog_platform.model.entity.Post;
 import org.mapstruct.Mapper;
@@ -14,6 +15,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring" , unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CategoryMapper {
+
+    Category toEntity(CreateCategoryRequest createCategoryRequest);
 
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
     CategoryDto toDto(Category category);
