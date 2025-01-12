@@ -1,6 +1,7 @@
 package com.furkanerd.blog_platform.exception;
 
 import com.furkanerd.blog_platform.model.dto.ApiErrorResponse;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,23 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiErrorResponse> handleIllegalStateException(IllegalStateException ex){
+        ApiErrorResponse error = ApiErrorResponse.builder()
+                .status(HttpStatus.CONFLICT.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(error,HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleEntityNotFoundException(EntityNotFoundException ex){
+        ApiErrorResponse error = ApiErrorResponse.builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
     }
 }
