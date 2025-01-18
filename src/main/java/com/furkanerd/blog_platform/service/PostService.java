@@ -1,6 +1,7 @@
 package com.furkanerd.blog_platform.service;
 
 import com.furkanerd.blog_platform.model.dto.CreatePostRequest;
+import com.furkanerd.blog_platform.model.dto.UpdatePostRequest;
 import com.furkanerd.blog_platform.model.entity.Post;
 import com.furkanerd.blog_platform.model.entity.User;
 
@@ -13,4 +14,6 @@ public interface PostService {
     List<Post> getDraftPosts(User user);
 
     Post createPost(User user , CreatePostRequest createPostRequest);
+
+    Post updatePost(UUID postId, UpdatePostRequest updatePostRequest);
 }

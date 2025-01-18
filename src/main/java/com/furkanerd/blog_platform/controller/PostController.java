@@ -3,6 +3,7 @@ package com.furkanerd.blog_platform.controller;
 import com.furkanerd.blog_platform.mapper.PostMapper;
 import com.furkanerd.blog_platform.model.dto.CreatePostRequestDto;
 import com.furkanerd.blog_platform.model.dto.PostDto;
+import com.furkanerd.blog_platform.model.dto.UpdatePostRequestDto;
 import com.furkanerd.blog_platform.model.entity.Post;
 import com.furkanerd.blog_platform.model.entity.User;
 import com.furkanerd.blog_platform.service.PostService;
@@ -52,5 +53,12 @@ public class PostController {
                 postMapper.toDto(createdPost),
                 HttpStatus.CREATED
         );
+    }
+
+    @PutMapping("/{postId}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable UUID postId
+            , @Valid @RequestBody UpdatePostRequestDto updatePostRequestDto) {
+        Post updatedPost = postService.updatePost(postId, postMapper.toUpdatePostRequest(updatePostRequestDto));
+        return ResponseEntity.ok(postMapper.toDto(updatedPost));
     }
 }
