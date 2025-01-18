@@ -61,4 +61,16 @@ public class PostController {
         Post updatedPost = postService.updatePost(postId, postMapper.toUpdatePostRequest(updatePostRequestDto));
         return ResponseEntity.ok(postMapper.toDto(updatedPost));
     }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable UUID postId) {
+        Post post = postService.getPostById(postId);
+        return ResponseEntity.ok(postMapper.toDto(post));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable UUID postId) {
+        postService.deletePostById(postId);
+        return ResponseEntity.noContent().build();
+    }
 }
