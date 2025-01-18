@@ -1,5 +1,6 @@
 package com.furkanerd.blog_platform.service;
 
+import com.furkanerd.blog_platform.model.dto.CreatePostRequest;
 import com.furkanerd.blog_platform.model.entity.Post;
 import com.furkanerd.blog_platform.model.entity.User;
 
@@ -10,4 +11,6 @@ public interface PostService {
     List<Post> getAllPosts(UUID categoryId, UUID tagId);
 
     List<Post> getDraftPosts(User user);
+
+    Post createPost(User user , CreatePostRequest createPostRequest);
 }

@@ -1,5 +1,7 @@
 package com.furkanerd.blog_platform.mapper;
 
+import com.furkanerd.blog_platform.model.dto.CreatePostRequest;
+import com.furkanerd.blog_platform.model.dto.CreatePostRequestDto;
 import com.furkanerd.blog_platform.model.dto.PostDto;
 import com.furkanerd.blog_platform.model.entity.Post;
 import org.mapstruct.Mapper;
@@ -16,4 +18,6 @@ public interface PostMapper {
     PostDto toDto(Post post);
 
     List<PostDto> toDtoList(List<Post> postList);
+
+    CreatePostRequest toCreatePostRequest(CreatePostRequestDto createPostRequestDto);
 }

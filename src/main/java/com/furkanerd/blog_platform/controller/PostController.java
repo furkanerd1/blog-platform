@@ -1,11 +1,14 @@
 package com.furkanerd.blog_platform.controller;
 
 import com.furkanerd.blog_platform.mapper.PostMapper;
+import com.furkanerd.blog_platform.model.dto.CreatePostRequestDto;
 import com.furkanerd.blog_platform.model.dto.PostDto;
 import com.furkanerd.blog_platform.model.entity.Post;
 import com.furkanerd.blog_platform.model.entity.User;
 import com.furkanerd.blog_platform.service.PostService;
 import com.furkanerd.blog_platform.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +38,19 @@ public class PostController {
 
     @GetMapping("/drafts")
     public ResponseEntity<List<PostDto>> getDrafts(@RequestAttribute UUID userId) {
-        User loggedInuser = userService.getUserById(userId);
-        List<Post> postList = postService.getDraftPosts(loggedInuser);
+        User loggedInUser = userService.getUserById(userId);
+        List<Post> postList = postService.getDraftPosts(loggedInUser);
         return ResponseEntity.ok(postMapper.toDtoList(postList));
+    }
+
+    @PostMapping
+    public ResponseEntity<PostDto> createPost(@Valid  @RequestBody CreatePostRequestDto createPostRequestDto,
+                                               @RequestAttribute UUID userId) {
+        User loggedInUser = userService.getUserById(userId);
+        Post createdPost = postService.createPost(loggedInUser, postMapper.toCreatePostRequest(createPostRequestDto));
+        return new ResponseEntity<>(
+                postMapper.toDto(createdPost),
+                HttpStatus.CREATED
+        );
     }
 }
