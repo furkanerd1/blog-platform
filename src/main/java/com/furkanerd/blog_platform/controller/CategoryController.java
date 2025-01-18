@@ -27,10 +27,8 @@ public class CategoryController {
 
     @GetMapping
     ResponseEntity<List<CategoryDto>> listCategories(){
-        List<CategoryDto> categoryList = categoryService.listCategories()
-                .stream().map(categoryMapper::toDto)
-                .toList();
-        return ResponseEntity.ok(categoryList);
+        List<Category> categoryList = categoryService.listCategories();
+        return ResponseEntity.ok(categoryMapper.toDtoList(categoryList));
     }
 
     @PostMapping

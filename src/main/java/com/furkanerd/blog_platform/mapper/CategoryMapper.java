@@ -21,6 +21,8 @@ public interface CategoryMapper {
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
     CategoryDto toDto(Category category);
 
+    List<CategoryDto> toDtoList(List<Category> categoryList);
+
     @Named("calculatePostCount")
     default long calculatePostCount(List<Post> posts){
         if(posts == null){
