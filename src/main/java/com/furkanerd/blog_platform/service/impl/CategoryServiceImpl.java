@@ -44,4 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
             categoryRepository.deleteById(categoryId);
         }
     }
+
+    @Override
+    public Category getCategoryById(UUID categoryId) {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id : " + categoryId));
+    }
 }

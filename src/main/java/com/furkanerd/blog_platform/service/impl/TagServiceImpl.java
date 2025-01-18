@@ -3,6 +3,7 @@ package com.furkanerd.blog_platform.service.impl;
 import com.furkanerd.blog_platform.model.entity.Tag;
 import com.furkanerd.blog_platform.repository.TagRepository;
 import com.furkanerd.blog_platform.service.TagService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,5 +57,11 @@ public class TagServiceImpl implements TagService {
             }
             tagRepository.deleteById(tagId);
         });
+    }
+
+    @Override
+    public Tag getTagById(UUID tagId) {
+        return tagRepository.findById(tagId)
+                .orElseThrow(() -> new EntityNotFoundException("Tag not found with id : "+tagId));
     }
 }
